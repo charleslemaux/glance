@@ -24,9 +24,17 @@ class AuthProvider extends ChangeNotifier {
       _userEmail = user.email;
       _isAuthenticated = true;
       _error = null;
+    } on AppwriteException catch (e) {
+      if (e.code == 401) {
+        _isAuthenticated = false;
+        _error = null;
+      } else {
+        _isAuthenticated = false;
+        _error = e.message ?? e.toString();
+      }
     } catch (e) {
       _isAuthenticated = false;
-      _error = e.toString();
+      _error = e.toString(); // Catch other potential errors
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -43,6 +51,17 @@ class AuthProvider extends ChangeNotifier {
       final user = await account.get();
       _userEmail = user.email;
       _isAuthenticated = true;
+      _error = null;
+    } on AppwriteException catch (e) {
+      if (e.type == "user_session_already_exists") {
+        await checkAuthStatus(); // Re-check auth status which might set isAuthenticated to true
+        if (!_isAuthenticated) { // If checkAuthStatus failed to authenticate
+           _error = "Failed to validate existing session.";
+        }
+      } else {
+        _error = e.message ?? e.toString();
+        _isAuthenticated = false;
+      }
     } catch (e) {
       _error = e.toString();
       _isAuthenticated = false;

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +13,8 @@ import 'package:glance/services/auth_service.dart';
 
 // Import utils
 import 'package:glance/utils/appwrite_config.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:glance/screens/no_connection_screen.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -32,14 +36,65 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         useMaterial3: true,
       ),
-      home: Consumer<AuthProvider>(
-        builder: (context, authProvider, _) {
-          if (authProvider.isLoading) {
-            return const SplashScreen();
-          }
-          return authProvider.isAuthenticated ? const HomeScreen() : const LoginScreen();
-        },
-      ),
+      home: ConnectivityWrapper(),
+    );
+  }
+}
+
+class ConnectivityWrapper extends StatefulWidget {
+  const ConnectivityWrapper({super.key});
+
+  @override
+  State<ConnectivityWrapper> createState() => _ConnectivityWrapperState();
+}
+
+class _ConnectivityWrapperState extends State<ConnectivityWrapper> {
+  bool _hasConnection = true;
+  bool _checking = false;
+  late final InternetConnection internetChecker;
+  late final Stream<InternetStatus> _connectionStream;
+  late final StreamSubscription<InternetStatus> _subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    internetChecker = InternetConnection.createInstance();
+    _connectionStream = internetChecker.onStatusChange;
+    _subscription = _connectionStream.listen((status) {
+      setState(() {
+        _hasConnection = status == InternetStatus.connected;
+      });
+    });
+    _checkConnection();
+  }
+
+  Future<void> _checkConnection() async {
+    setState(() { _checking = true; });
+    final connected = await internetChecker.hasInternetAccess;
+    setState(() {
+      _hasConnection = connected;
+      _checking = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_hasConnection) {
+      return NoConnectionScreen(onRetry: _checkConnection, isLoading: _checking);
+    }
+    return Consumer<AuthProvider>(
+      builder: (context, authProvider, _) {
+        if (authProvider.isLoading) {
+          return const SplashScreen();
+        }
+        return authProvider.isAuthenticated ? const HomeScreen() : const LoginScreen();
+      },
     );
   }
 }
