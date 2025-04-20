@@ -25,11 +25,20 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  void _login(AuthProvider authProvider) {
+    if (_formKey.currentState!.validate()) {
+      context.read<AuthProvider>().login(
+            _emailController.text,
+            _passwordController.text,
+          );
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -40,24 +49,24 @@ class _LoginScreenState extends State<LoginScreen> {
       body: AppBackground(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(24.0), 
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-              const SizedBox(height: 80),
-              const Icon(
+              const SizedBox(height: 80), 
+              const Icon( 
                 Icons.remove_red_eye_outlined,
                 size: 100,
                 color: Colors.white,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 20), 
               Text(
                 'Glance',
                 style: AppTextStyles.heading,
               ),
-              const SizedBox(height: 60),
+              const SizedBox(height: 60), 
               GlassmorphicContainer(
                 width: size.width,
                 height: size.height * 0.45,
@@ -82,34 +91,34 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0), 
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextFormField(
                         controller: _emailController,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white), 
                         decoration: InputDecoration(
                           labelText: 'Email',
-                          labelStyle: const TextStyle(color: Colors.white70),
-                          prefixIcon: const Icon(Icons.email_outlined, color: Colors.white70),
+                          labelStyle: const TextStyle(color: Colors.white70), 
+                          prefixIcon: const Icon(Icons.email_outlined, color: Colors.white70), 
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(color: Colors.white.withAlpha(30)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white), 
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(color: Colors.redAccent),
+                            borderSide: const BorderSide(color: Colors.redAccent), 
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(color: Colors.redAccent),
+                            borderSide: const BorderSide(color: Colors.redAccent), 
                           ),
-                          errorStyle: const TextStyle(color: Colors.redAccent),
+                          errorStyle: const TextStyle(color: Colors.redAccent), 
                           filled: true,
                           fillColor: Colors.white.withAlpha(10),
                         ),
@@ -118,34 +127,37 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your email';
                           }
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                             return 'Please enter a valid email address';
+                          }
                           return null;
                         },
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 20), 
                       TextFormField(
                         controller: _passwordController,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white), 
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          labelStyle: const TextStyle(color: Colors.white70),
-                          prefixIcon: const Icon(Icons.lock_outline, color: Colors.white70),
-                          enabledBorder: OutlineInputBorder(
+                          labelStyle: const TextStyle(color: Colors.white70), 
+                          prefixIcon: const Icon(Icons.lock_outline, color: Colors.white70), 
+                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(color: Colors.white.withAlpha(30)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white), 
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(color: Colors.redAccent),
+                            borderSide: const BorderSide(color: Colors.redAccent), 
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(color: Colors.redAccent),
+                            borderSide: const BorderSide(color: Colors.redAccent), 
                           ),
-                          errorStyle: const TextStyle(color: Colors.redAccent),
+                          errorStyle: const TextStyle(color: Colors.redAccent), 
                           filled: true,
                           fillColor: Colors.white.withAlpha(10),
                         ),
@@ -157,33 +169,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                      if (authProvider.error != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Text(
-                            authProvider.error!,
-                            style: const TextStyle(color: Colors.redAccent),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      const SizedBox(height: 30),
-                      AppButton(
-                        text: 'LOGIN',
-                        isLoading: authProvider.isLoading,
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            authProvider.login(
-                              _emailController.text,
-                              _passwordController.text,
-                            );
-                          }
+                      Consumer<AuthProvider>(
+                        builder: (context, authProvider, child) {
+                          return Column(
+                            children: [
+                              if (authProvider.error != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 16), 
+                                  child: Text(
+                                    authProvider.error!,
+                                    style: const TextStyle(color: Colors.redAccent), 
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              const SizedBox(height: 30), 
+                              AppButton(
+                                text: 'LOGIN',
+                                isLoading: authProvider.isLoading,
+                                onPressed: () => _login(authProvider), 
+                              ),
+                            ],
+                          );
                         },
                       ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 20), 
             ],
           ),
         ),

@@ -27,14 +27,17 @@ class AuthProvider extends ChangeNotifier {
     } on AppwriteException catch (e) {
       if (e.code == 401) {
         _isAuthenticated = false;
+        _userEmail = null;
         _error = null;
       } else {
         _isAuthenticated = false;
+         _userEmail = null;
         _error = e.message ?? e.toString();
       }
     } catch (e) {
       _isAuthenticated = false;
-      _error = e.toString(); // Catch other potential errors
+      _userEmail = null;
+      _error = e.toString();
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -51,39 +54,38 @@ class AuthProvider extends ChangeNotifier {
       final user = await account.get();
       _userEmail = user.email;
       _isAuthenticated = true;
-      _error = null;
+      _error = null; 
     } on AppwriteException catch (e) {
-      if (e.type == "user_session_already_exists") {
-        await checkAuthStatus(); // Re-check auth status which might set isAuthenticated to true
-        if (!_isAuthenticated) { // If checkAuthStatus failed to authenticate
-           _error = "Failed to validate existing session.";
-        }
-      } else {
-        _error = e.message ?? e.toString();
-        _isAuthenticated = false;
-      }
-    } catch (e) {
+      _error = e.message ?? e.toString();
+      _isAuthenticated = false;
+      _userEmail = null;
+    } catch (e) { 
       _error = e.toString();
       _isAuthenticated = false;
+      _userEmail = null;
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      _isLoading = false; 
+      notifyListeners(); 
     }
   }
 
+
   Future<void> logout() async {
     _isLoading = true;
-    notifyListeners();
+    notifyListeners(); 
 
     try {
       await account.deleteSession(sessionId: 'current');
       _isAuthenticated = false;
       _userEmail = null;
-    } catch (e) {
+      _error = null; 
+    } on AppwriteException catch (e) { 
+       _error = e.message ?? e.toString();
+    } catch (e) { 
       _error = e.toString();
     } finally {
       _isLoading = false;
-      notifyListeners();
+      notifyListeners(); 
     }
   }
 }
