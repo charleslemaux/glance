@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
-import 'package:glassmorphism/glassmorphism.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../widgets/app_background.dart';
+import '../widgets/glassmorphic_card.dart';
+import '../widgets/app_text_styles.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,9 +18,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Glance', style: GoogleFonts.poppins(
-          textStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)
-        )),
+        title: Text('Glance', style: AppTextStyles.appBarTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
@@ -27,20 +26,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-        height: size.height,
-        width: size.width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF6A1B9A),  // Deep purple
-              Color(0xFF4527A0),  // Deep purple variant
-              Color(0xFF311B92),  // Indigo
-            ],
-          ),
-        ),
+      body: AppBackground(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -56,39 +42,12 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 Text(
                   'Glance',
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
+                  style: AppTextStyles.heading,
                 ),
                 const SizedBox(height: 40),
-                GlassmorphicContainer(
+                GlassmorphicCard(
                   width: size.width,
-                  height: 200,
-                  borderRadius: 20,
-                  blur: 20,
-                  alignment: Alignment.center,
-                  border: 2,
-                  linearGradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Colors.white.withAlpha(10),
-                      Colors.white.withAlpha(5),
-                    ],
-                  ),
-                  borderGradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Colors.white.withAlpha(50),
-                      Colors.white.withAlpha(20),
-                    ],
-                  ),
+                  height: size.height * 0.4,
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
@@ -96,23 +55,12 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Welcome to Glance!',
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
+                          style: AppTextStyles.subHeading,
                         ),
                         const SizedBox(height: 20),
                         Text(
                           'User Email: ${authProvider.userEmail}',
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.white70,
-                            ),
-                          ),
+                          style: AppTextStyles.body,
                         ),
                       ],
                     ),

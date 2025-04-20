@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../widgets/app_text_styles.dart';
+import '../widgets/app_background.dart';
+import '../widgets/app_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -33,24 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Login', style: GoogleFonts.poppins(
-          textStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)
-        )),
+        title: Text('Login', style: AppTextStyles.appBarTitle),
       ),
-      body: Container(
-        height: size.height,
-        width: size.width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF6A1B9A),  // Deep purple
-              Color(0xFF4527A0),  // Deep purple variant
-              Color(0xFF311B92),  // Indigo
-            ],
-          ),
-        ),
+      body: AppBackground(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -68,19 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
               Text(
                 'Glance',
-                style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 1.5,
-                  ),
-                ),
+                style: AppTextStyles.heading,
               ),
               const SizedBox(height: 60),
               GlassmorphicContainer(
                 width: size.width,
-                height: 320,
+                height: size.height * 0.45,
                 borderRadius: 20,
                 blur: 20,
                 alignment: Alignment.center,
@@ -187,42 +167,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       const SizedBox(height: 30),
-                      ElevatedButton(
-                        onPressed: authProvider.isLoading
-                            ? null
-                            : () {
-                                if (_formKey.currentState!.validate()) {
-                                  authProvider.login(
-                                    _emailController.text,
-                                    _passwordController.text,
-                                  );
-                                }
-                              },
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50),
-                          backgroundColor: Colors.white.withAlpha(20),
-                          foregroundColor: Colors.white,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            side: BorderSide(color: Colors.white.withAlpha(30)),
-                          ),
-                        ),
-                        child: authProvider.isLoading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : Text('LOGIN', style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.5,
-                                ),
-                              )),
+                      AppButton(
+                        text: 'LOGIN',
+                        isLoading: authProvider.isLoading,
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            authProvider.login(
+                              _emailController.text,
+                              _passwordController.text,
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),

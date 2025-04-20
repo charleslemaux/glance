@@ -1,57 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:glassmorphism/glassmorphism.dart';
+import '../widgets/app_background.dart';
+import '../widgets/app_text_styles.dart';
+
+import '../widgets/glassmorphic_card.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: Container(
-        height: size.height,
-        width: size.width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF6A1B9A),  // Deep purple
-              Color(0xFF4527A0),  // Deep purple variant
-              Color(0xFF311B92),  // Indigo
-            ],
-          ),
-        ),
+      body: AppBackground(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GlassmorphicContainer(
+              GlassmorphicCard(
                 width: 200,
                 height: 200,
-                borderRadius: 20,
-                blur: 20,
-                alignment: Alignment.center,
-                border: 2,
-                linearGradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.white.withAlpha(10),
-                    Colors.white.withAlpha(5),
-                  ],
-                ),
-                borderGradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.white.withAlpha(50),
-                    Colors.white.withAlpha(20),
-                  ],
-                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -63,14 +30,7 @@ class SplashScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     Text(
                       'Glance',
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          letterSpacing: 1.5,
-                        ),
-                      ),
+                      style: AppTextStyles.subHeading,
                     ),
                   ],
                 ),
