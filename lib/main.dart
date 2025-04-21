@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart' hide Consumer;
 import 'package:provider/provider.dart';
 
 // Import screens
@@ -30,12 +30,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ShadcnApp(
       title: 'Glance',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        useMaterial3: true,
-      ),
+        colorScheme: ColorSchemes.darkViolet(),
+        radius: 0.5,
+        ),
       home: ConnectivityWrapper(),
     );
   }
