@@ -4,6 +4,7 @@ import '../services/auth_service.dart';
 import '../widgets/app_background.dart';
 import '../widgets/glassmorphic_card.dart';
 import '../widgets/app_text_styles.dart';
+import 'consent_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -61,6 +62,29 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           'User Email: ${authProvider.userEmail}',
                           style: AppTextStyles.body,
+                        ),
+                        const SizedBox(height: 30),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ConsentScreen(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF6A1B9A), // Deep purple (primary color)
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            'View Consent Screen',
+                            style: AppTextStyles.buttonText,
+                          ),
                         ),
                       ],
                     ),
