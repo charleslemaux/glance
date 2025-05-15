@@ -75,18 +75,18 @@ class _TodoWidgetState extends State<TodoWidget> {
                     style: AppTextStyles.body,
                     decoration: InputDecoration(
                       hintText: 'Add a new task...',
-                      hintStyle: AppTextStyles.body.copyWith(color: Colors.white38),
+                      hintStyle: AppTextStyles.body.copyWith(color: const Color(0xFF8D7B68).withAlpha(97)), // New palette: Darkest brown with alpha
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.white.withAlpha(50)),
+                        borderSide: BorderSide(color: const Color(0xFF8D7B68).withAlpha(128)), // New palette: Darkest brown with alpha
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.white.withAlpha(50)),
+                        borderSide: BorderSide(color: const Color(0xFF8D7B68).withAlpha(128)), // New palette: Darkest brown with alpha
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF6A1B9A)),
+                        borderSide: const BorderSide(color: Color(0xFF8D7B68)), // New palette: Darkest brown
                       ),
                     ),
                   ),
@@ -94,7 +94,7 @@ class _TodoWidgetState extends State<TodoWidget> {
                 const SizedBox(width: 10),
                 IconButton(
                   onPressed: _addTodo,
-                  icon: const Icon(Icons.add_circle, color: Color(0xFF6A1B9A), size: 36),
+                  icon: const Icon(Icons.add_circle, color: Color(0xFF8D77AB), size: 36),
                 ),
               ],
             ),
@@ -116,13 +116,13 @@ class _TodoWidgetState extends State<TodoWidget> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.white.withAlpha(20),
+                              color: const Color(0xFFF9F6E6).withAlpha(51),
                             ),
                             child: ListTile(
                               leading: IconButton(
                                 icon: Icon(
                                   todo.isDone ? Icons.check_circle : Icons.circle_outlined,
-                                  color: todo.isDone ? const Color(0xFF6A1B9A) : Colors.white70,
+                                  color: todo.isDone ? const Color(0xFF8D77AB) : const Color(0xFF8D77AB).withAlpha(178),
                                 ),
                                 onPressed: () => _toggleTodo(index),
                               ),
@@ -130,11 +130,11 @@ class _TodoWidgetState extends State<TodoWidget> {
                                 todo.text,
                                 style: AppTextStyles.body.copyWith(
                                   decoration: todo.isDone ? TextDecoration.lineThrough : null,
-                                  color: todo.isDone ? Colors.white38 : Colors.white,
+                                  color: todo.isDone ? const Color(0xFF8D77AB).withAlpha(97) : const Color(0xFF8D77AB),
                                 ),
                               ),
                               trailing: IconButton(
-                                icon: const Icon(Icons.delete_outline, color: Colors.white70),
+                                icon: Icon(Icons.delete_outline, color: const Color(0xFF8D77AB).withAlpha(178)),
                                 onPressed: () => _deleteTodo(index),
                               ),
                             ),

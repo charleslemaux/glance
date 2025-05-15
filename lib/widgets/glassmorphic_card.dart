@@ -32,16 +32,16 @@ class GlassmorphicCard extends StatelessWidget {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          Colors.white.withAlpha(10),
-          Colors.white.withAlpha(5),
+          const Color(0xFFF1DEC9).withAlpha(40), // New palette: Lightest shade with alpha
+          const Color(0xFFF1DEC9).withAlpha(25), // New palette: Lightest shade with alpha
         ],
       ),
       borderGradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          Colors.white.withAlpha(50),
-          Colors.white.withAlpha(20),
+          const Color(0xFFA4907C).withAlpha(70), // New palette: Medium shade with alpha
+          const Color(0xFFA4907C).withAlpha(40), // New palette: Medium shade with alpha
         ],
       ),
       child: child,

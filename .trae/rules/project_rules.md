@@ -8,7 +8,7 @@ Glance is a Flutter application that uses AppWrite for backend services and Shad
 ### Frontend
 - **Framework**: Flutter
 - **UI Component Library**: Shadcn Flutter (official version)
-- **Theming**: Based on Shadcn's ColorSchemes (currently using darkViolet)
+- **Theming**: Based on a custom color palette (currently using shades of brown and beige)
 - **UI Effects**: Glassmorphism for card components
 - **Fonts**: Google Fonts (Poppins)
 - **Animations**: Lottie for animations
@@ -38,7 +38,7 @@ Glance is a Flutter application that uses AppWrite for backend services and Shad
 
 ### Design System
 - Use the Shadcn Flutter component library for consistent UI elements
-- Follow the ColorSchemes from Shadcn (currently darkViolet)
+- Follow the custom color palette (currently shades of brown and beige)
 - Border radius: 0.5 (as defined in ThemeData)
 
 ### Custom Components
@@ -56,11 +56,13 @@ Glance is a Flutter application that uses AppWrite for backend services and Shad
   - `buttonText`: For button labels
 
 ### Colors
-- Primary gradient:
-  - Deep purple (#6A1B9A)
-  - Deep purple variant (#4527A0)
-  - Indigo (#311B92)
-- Text colors: White or white with alpha for less emphasis
+- Primary gradient (example from AppBackground, can be expanded):
+  - Light Beige (#F1DEC9)
+  - Dark Brown (#8D7B68)
+- Accent Colors (examples, can be expanded):
+  - Medium Brown (#A4907C)
+  - Light Brown (#C8B6A6)
+- Text colors: Dark brown (e.g., #8D7B68) or off-black for primary text, lighter browns or grays for secondary text, ensuring contrast with the background.
 
 ## State Management
 - Use Provider pattern for state management

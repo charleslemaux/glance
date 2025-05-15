@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import '../widgets/app_background.dart';
 import '../widgets/app_text_styles.dart';
+import '../widgets/glassmorphic_card.dart';
+import '../widgets/app_button.dart';
 
 class ConsentScreen extends StatelessWidget {
   const ConsentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Define theme colors based on project guidelines
-    final primaryColor = Color(0xFF6A1B9A); // Deep purple
-    final accentColor = Color(0xFF4527A0); // Deep purple variant
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: AppBackground(
@@ -36,9 +34,7 @@ class ConsentScreen extends StatelessWidget {
                             ),
                             Text(
                               'Glance',
-                              style: AppTextStyles.heading.copyWith(
-                                color: primaryColor,
-                              ),
+                              style: AppTextStyles.heading, // Assuming theme or style handles color
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -50,7 +46,7 @@ class ConsentScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 24.0),
                           child: ListView(
-                            children: _buildFeaturesList(accentColor),
+                            children: _buildFeaturesList(), // Removed accentColor argument
                           ),
                         ),
                       ),
@@ -59,30 +55,27 @@ class ConsentScreen extends StatelessWidget {
                       Column(
                         children: [
                           // Terms and Privacy Policy
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: const EdgeInsets.all(16.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.2),
-                                width: 1,
-                              ),
-                            ),
-                            child: Column(
+                          GlassmorphicCard(
+                            width: double.infinity,
+                            height: 150, // Provide a fixed height for the card
+                            borderRadius: 15,
+                            blur: 10, // Adjusted blur for better readability
+                            border: 1,  // Adjusted border for subtlety
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0), // Restore original padding
+                              child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.people,
-                                  color: primaryColor,
+                                  // color: primaryColor, // Removed hardcoded color, assuming theme or default
                                   size: 24,
                                 ),
                                 const SizedBox(height: 8),
                                 RichText(
                                   textAlign: TextAlign.center,
                                   text: TextSpan(
-                                    style: AppTextStyles.body,
+                                    style: AppTextStyles.body, // Assuming AppTextStyles.body has appropriate default color
                                     children: [
                                       const TextSpan(
                                         text: 'By pressing continue, you agree to our ',
@@ -90,8 +83,9 @@ class ConsentScreen extends StatelessWidget {
                                       TextSpan(
                                         text: 'Terms of Service',
                                         style: AppTextStyles.body.copyWith(
-                                          color: accentColor,
+                                          // color: accentColor, // Rely on theme or define a specific style in AppTextStyles if needed
                                           fontWeight: FontWeight.w600,
+                                          // Example: color: Theme.of(context).colorScheme.secondary // if accentColor maps to secondary
                                         ),
                                       ),
                                       const TextSpan(
@@ -100,40 +94,28 @@ class ConsentScreen extends StatelessWidget {
                                       TextSpan(
                                         text: 'Privacy Policy',
                                         style: AppTextStyles.body.copyWith(
-                                          color: accentColor,
+                                          // color: accentColor, // Rely on theme or define a specific style in AppTextStyles if needed
                                           fontWeight: FontWeight.w600,
+                                          // Example: color: Theme.of(context).colorScheme.secondary // if accentColor maps to secondary
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
+                              ], // This closes the children of Column
+                            ), // This closes the Column
+                            ), // This closes the Padding
+                          ), // This closes the GlassmorphicCard
                           
                           const SizedBox(height: 20),
                           
                           // Consent Button
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Navigate back to previous screen
-                                Navigator.pop(context);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: primaryColor,
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Text(
-                                'Consent',
-                                style: AppTextStyles.buttonText,
-                              ),
-                            ),
+                          AppButton(
+                            text: 'Consent',
+                            onPressed: () {
+                              // Navigate back to previous screen
+                              Navigator.pop(context);
+                            },
                           ),
                         ],
                       ),
@@ -148,7 +130,7 @@ class ConsentScreen extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildFeaturesList(Color accentColor) {
+  List<Widget> _buildFeaturesList() {
     final features = [
       {
         'title': 'Profile Management',
@@ -170,23 +152,21 @@ class ConsentScreen extends StatelessWidget {
     return features.map((feature) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 24.0),
-        child: Container(
+        child: GlassmorphicCard(
           width: double.infinity,
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.2),
-              width: 1,
-            ),
-          ),
-          child: Row(
+          height: 100, // Provide a fixed height for the feature card
+          borderRadius: 15,
+          blur: 10, // Adjusted blur for better readability
+          border: 1,  // Adjusted border for subtlety
+          child: Padding(
+            padding: const EdgeInsets.all(16.0), // Restore original padding
+            child: Row(
             children: [
               Icon(
                 feature['icon'] as IconData,
                 size: 38,
-                color: accentColor,
+                // Assuming icon color is handled by theme or a default white/appropriate color
+                // color: accentColor, // Removed hardcoded color
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -198,6 +178,7 @@ class ConsentScreen extends StatelessWidget {
                       feature['title'] as String,
                       style: AppTextStyles.body.copyWith(
                         fontWeight: FontWeight.bold,
+                        color: Colors.white, // Ensure title is clearly visible
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -205,6 +186,7 @@ class ConsentScreen extends StatelessWidget {
                       feature['description'] as String,
                       style: AppTextStyles.body.copyWith(
                         fontSize: 14,
+                        color: Colors.white70, // Keep description slightly less prominent
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -213,8 +195,9 @@ class ConsentScreen extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
+          ), // This closes the Row
+          ), // This closes the Padding
+        ), // This closes the GlassmorphicCard
       );
     }).toList();
   }

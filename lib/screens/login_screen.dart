@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
-import 'package:glassmorphism/glassmorphism.dart';
+import '../widgets/glassmorphic_card.dart';
 import '../widgets/app_text_styles.dart';
 import '../widgets/app_background.dart';
 import '../widgets/app_button.dart';
@@ -67,29 +67,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: AppTextStyles.heading,
               ),
               const SizedBox(height: 60), 
-              GlassmorphicContainer(
+              GlassmorphicCard(
                 width: size.width,
                 height: size.height * 0.45,
-                borderRadius: 20,
-                blur: 20,
-                alignment: Alignment.center,
-                border: 2,
-                linearGradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.white.withAlpha(10),
-                    Colors.white.withAlpha(5),
-                  ],
-                ),
-                borderGradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.white.withAlpha(50),
-                    Colors.white.withAlpha(20),
-                  ],
-                ),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0), 
                   child: Column(

@@ -23,11 +23,11 @@ class AppButton extends StatelessWidget {
         onPressed: isLoading ? null : onPressed,
         style: TextButton.styleFrom(
           minimumSize: const Size.fromHeight(50),
-          backgroundColor: Colors.white.withAlpha(20),
-          foregroundColor: Colors.white,
+          backgroundColor: const Color(0xFF8D7B68), // New palette: Darkest brown
+          foregroundColor: const Color(0xFFF1DEC9), // New palette: Lightest (consistent with AppTextStyles.buttonText)
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: Colors.white.withAlpha(30)),
+            side: BorderSide(color: const Color(0xFFF1DEC9).withAlpha(70)), // New palette: Lightest for border
           ),
           padding: const EdgeInsets.symmetric(vertical: 12),
         ),
@@ -36,7 +36,7 @@ class AppButton extends StatelessWidget {
                 height: 20,
                 width: 20,
                 child: CircularProgressIndicator(
-                  color: Colors.white,
+                  color: Color(0xFFF1DEC9), // New palette: Lightest for progress indicator
                   strokeWidth: 2,
                 ),
               )
