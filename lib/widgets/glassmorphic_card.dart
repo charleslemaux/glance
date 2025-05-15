@@ -8,6 +8,7 @@ class GlassmorphicCard extends StatelessWidget {
   final double borderRadius;
   final double blur;
   final double border;
+  final int baseAlpha;
 
   const GlassmorphicCard({
     super.key,
@@ -17,6 +18,7 @@ class GlassmorphicCard extends StatelessWidget {
     this.borderRadius = 20,
     this.blur = 20,
     this.border = 2,
+    this.baseAlpha = 80, // Default alpha for increased opacity
   });
 
   @override
@@ -32,8 +34,8 @@ class GlassmorphicCard extends StatelessWidget {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          const Color(0xFFF1DEC9).withAlpha(40), // New palette: Lightest shade with alpha
-          const Color(0xFFF1DEC9).withAlpha(25), // New palette: Lightest shade with alpha
+          const Color(0xFFC8B6A6).withAlpha(baseAlpha),
+          const Color(0xFFC8B6A6).withAlpha((baseAlpha * 0.625).round()), // Maintain ratio (25/40)
         ],
       ),
       borderGradient: LinearGradient(
