@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                 const Icon(
                   Icons.remove_red_eye_outlined,
                   size: 80,
-                  color: Colors.white,
+                  color: Color(0xFF8D7B68),
                 ),
                 const SizedBox(height: 20),
                 Text(
