@@ -41,12 +41,150 @@ class ConsentScreen extends StatelessWidget {
                         ),
                       ),
                       
-                      // Features List
+                      // Features List - Hardcoded in column layout
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 24.0),
                           child: ListView(
-                            children: _buildFeaturesList(), // Removed accentColor argument
+                            children: [
+                              // Profile Management Feature
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 24.0),
+                                child: GlassmorphicCard(
+                                  width: double.infinity,
+                                  height: 160, // Increased height for column layout
+                                  borderRadius: 15,
+                                  blur: 10,
+                                  border: 1,
+                                  baseAlpha: 100, // Increased opacity for better contrast with text
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.person_outline,
+                                          size: 38,
+                                          color: const Color(0xFF8D7B68),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Text(
+                                          'Profile Management',
+                                          style: AppTextStyles.body.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xFF8D7B68),
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'Effortlessly update and manage your personal information, settings, and preferences.',
+                                          style: AppTextStyles.body.copyWith(
+                                            fontSize: 14,
+                                            color: const Color(0xFFA4907C),
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              
+                              // Secure Fingerprint Feature
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 24.0),
+                                child: GlassmorphicCard(
+                                  width: double.infinity,
+                                  height: 160,
+                                  borderRadius: 15,
+                                  blur: 10,
+                                  border: 1,
+                                  baseAlpha: 100, // Increased opacity for better contrast with text
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.shield_outlined,
+                                          size: 38,
+                                          color: const Color(0xFF8D7B68),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Text(
+                                          'Secure Fingerprint',
+                                          style: AppTextStyles.body.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xFF8D7B68),
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'Your data remains private and secure, never shared with third parties or processed outside YouSearch.',
+                                          style: AppTextStyles.body.copyWith(
+                                            fontSize: 14,
+                                            color: const Color(0xFFA4907C),
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              
+                              // Activity Tracking Feature
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 24.0),
+                                child: GlassmorphicCard(
+                                  width: double.infinity,
+                                  height: 160,
+                                  borderRadius: 15,
+                                  blur: 10,
+                                  border: 1,
+                                  baseAlpha: 100, // Increased opacity for better contrast with text
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.analytics_outlined,
+                                          size: 38,
+                                          color: const Color(0xFF8D7B68),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Text(
+                                          'Activity Tracking',
+                                          style: AppTextStyles.body.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xFF8D7B68),
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'Track your daily activities and monitor your progress over time with detailed insights.',
+                                          style: AppTextStyles.body.copyWith(
+                                            fontSize: 14,
+                                            color: const Color(0xFFA4907C),
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -57,25 +195,26 @@ class ConsentScreen extends StatelessWidget {
                           // Terms and Privacy Policy
                           GlassmorphicCard(
                             width: double.infinity,
-                            height: 150, // Provide a fixed height for the card
+                            height: 112,
                             borderRadius: 15,
                             blur: 10, // Adjusted blur for better readability
                             border: 1,  // Adjusted border for subtlety
+                            baseAlpha: 100, // Increased opacity for better contrast with text
                             child: Padding(
-                              padding: const EdgeInsets.all(16.0), // Restore original padding
+                              padding: const EdgeInsets.all(10.0), // Restore original padding
                               child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.people,
-                                  // color: primaryColor, // Removed hardcoded color, assuming theme or default
+                                  color: const Color(0xFF8D7B68),
                                   size: 24,
                                 ),
                                 const SizedBox(height: 8),
                                 RichText(
                                   textAlign: TextAlign.center,
                                   text: TextSpan(
-                                    style: AppTextStyles.body, // Assuming AppTextStyles.body has appropriate default color
+                                    style: AppTextStyles.body,
                                     children: [
                                       const TextSpan(
                                         text: 'By pressing continue, you agree to our ',
@@ -130,75 +269,5 @@ class ConsentScreen extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildFeaturesList() {
-    final features = [
-      {
-        'title': 'Profile Management',
-        'description': 'Effortlessly update and manage your personal information, settings, and preferences.',
-        'icon': Icons.person_outline,
-      },
-      {
-        'title': 'Secure Fingerprint',
-        'description': 'Your data remains private and secure, never shared with third parties or processed outside YouSearch.',
-        'icon': Icons.shield_outlined,
-      },
-      {
-        'title': 'Activity Tracking',
-        'description': 'Track your daily activities and monitor your progress over time with detailed insights.',
-        'icon': Icons.analytics_outlined,
-      },
-    ];
-
-    return features.map((feature) {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 24.0),
-        child: GlassmorphicCard(
-          width: double.infinity,
-          height: 100, // Provide a fixed height for the feature card
-          borderRadius: 15,
-          blur: 10, // Adjusted blur for better readability
-          border: 1,  // Adjusted border for subtlety
-          child: Padding(
-            padding: const EdgeInsets.all(16.0), // Restore original padding
-            child: Row(
-            children: [
-              Icon(
-                feature['icon'] as IconData,
-                size: 38,
-                // Assuming icon color is handled by theme or a default white/appropriate color
-                // color: accentColor, // Removed hardcoded color
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      feature['title'] as String,
-                      style: AppTextStyles.body.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white, // Ensure title is clearly visible
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      feature['description'] as String,
-                      style: AppTextStyles.body.copyWith(
-                        fontSize: 14,
-                        color: Colors.white70, // Keep description slightly less prominent
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ), // This closes the Row
-          ), // This closes the Padding
-        ), // This closes the GlassmorphicCard
-      );
-    }).toList();
-  }
+  // Method removed as features are now hardcoded directly in the UI
 }
