@@ -6,14 +6,14 @@ import '../../widgets/app_button.dart';
 abstract class BaseConsentScreen extends StatefulWidget {
   final String title;
   final String nextRoute;
-  final bool isLastScreen;
 
   const BaseConsentScreen({
     super.key,
     required this.title,
     required this.nextRoute,
-    this.isLastScreen = false,
   });
+
+  bool get isLastScreen => false;
 
   @override
   BaseConsentScreenState createState() => BaseConsentScreenState();
